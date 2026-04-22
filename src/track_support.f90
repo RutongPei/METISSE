@@ -167,7 +167,7 @@ module track_support
         real(dp):: epoch, age, age_old, age2
         real(dp):: delta, dt, dms, mcenv, rcenv, bhspin
         real(dp):: binding_energy
-	real(dp) :: binding_energy_re
+	    real(dp) :: binding_energy_re
     end type star_parameters
     
 

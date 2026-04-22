@@ -27,22 +27,14 @@ subroutine comenv_lambda(KW,M0,L,R,MENVD,LAMBDA,id,LAMBF)
 
     if (LAMBDA < -1.5d0 .and. i_binding_energy_re > 0) then
         LAMBF = - (t%pars%mass * (t%pars%mass - t%pars%core_mass)) / &
-         ((t%pars%binding_energy_re / 3.8d48) * R)
-        write(0,'(A,I3,A,F8.3,A,F8.3,A,F8.3,A,ES12.4,A,ES12.4,A,F10.5)') &
-            '[CE lambda] KW=',KW,' M=',t%pars%mass,' Mc=',t%pars%core_mass, &
-            ' R=',R,' BE_re=',t%pars%binding_energy_re, &
-            ' BE=',t%pars%binding_energy,' LAMBF(be_re)=',LAMBF
+         ((t%pars%binding_energy_re / 3.8d48) * R) !units core_mass in solar, BE in ergs
+
     else if (LAMBDA < -0.5d0 .and. i_binding_energy > 0) then
         LAMBF = - (t%pars%mass * (t%pars%mass - t%pars%core_mass)) / &
          ((t%pars%binding_energy / 3.8d48) * R)
-        write(0,'(A,I3,A,F8.3,A,F8.3,A,F8.3,A,ES12.4,A,F10.5)') &
-            '[CE lambda] KW=',KW,' M=',t%pars%mass,' Mc=',t%pars%core_mass, &
-            ' R=',R,' BE=',t%pars%binding_energy,' LAMBF(be)=',LAMBF
+    
     else
         LAMBF = CELAMF(KW,M0,L,R,RZAMS,MENVD,LAMBDA)
-        write(0,'(A,I3,A,F8.3,A,F8.3,A,F10.5)') &
-            '[CE lambda] KW=',KW,' M=',M0,' R=',R, &
-            ' RZAMS=',RZAMS,' LAMBF(analytic)=',LAMBF
     endif
 
     LAMBF = MIN(100.0d0, LAMBF)
